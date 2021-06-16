@@ -1,4 +1,4 @@
-# self-manage
+# self-backstage
 
 ## Project setup
 ```
