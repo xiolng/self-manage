@@ -9,20 +9,21 @@
       mode="inline"
       @click="clickMenu"
     >
-      <template v-for="item in menuData">
+      <template v-for="item in defaultData">
+
         <!--一级菜单-->
         <a-menu-item
-          :key="item.menuUrl"
-          v-if="item && !item.children"
+          :key="item.meta.activeUrl"
+          v-if="item && !item.meta.hideMenu && !item.children"
         >
-          <a-icon :type="item.icon" />
-          <span>{{item.menuName}}</span>
+          <a-icon :type="item.meta.icon" />
+          <span>{{item.meta.name}}</span>
         </a-menu-item>
         <!--多级菜单-->
         <sub-menu
-          v-if="item.children"
+          v-if="item && !item.meta.hideMenu && item.children"
           :menu-info="item"
-          :key="item.menuUrl"
+          :key="item.meta.activeUrl"
         />
       </template>
     </a-menu>
@@ -33,6 +34,7 @@
   // 路由数据
   // import routes from '@/router/index'
   import SubMenu from './SubMenu'
+  import routes from "../../router"
 
   export default {
     name: 'MenuC',
@@ -49,6 +51,7 @@
         routes: [],
         // 选中菜单
         selectMenu: '',
+        defaultData: routes[0].children
       }
     },
     beforeMount () {
@@ -56,13 +59,15 @@
       this.selectMenu = [this.$route.meta.activeUrl]
     },
     mounted () {
+      this.defaultData = routes[0].children
     },
     methods: {
       openKeys () {
         return [this.$route.matched[1].meta.activeUrl]
       },
       // 点击菜单选中
-      clickMenu ({ item, key, keyPath }) {
+      clickMenu ({item, key, keyPath}) {
+        console.log(item, key, keyPath, this.$route.path)
         this.selectMenu = [key]
         if (key === this.$route.path) return
         this.$router.push({

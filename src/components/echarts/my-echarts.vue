@@ -7,7 +7,8 @@
 </template>
 
 <script>
-  import echarts from 'echarts'
+  import * as echarts from 'echarts'
+
   import { debounce } from './utils'
 
   require('echarts/theme/macarons')
@@ -25,7 +26,7 @@
       },
       elHeight: {
         type: String,
-        default: '400px'
+        default: '300px'
       },
       getTableList: Function // 回调
     },
@@ -55,10 +56,11 @@
       async renderEcharts (myEchart) {
         const option = require('./type')[this.type](this.ecData)
         // option.color = new ColorList(colors, 5)
-        await myEchart.setOption(option, true)
+        await myEchart.setOption(option)
       },
       initEcharts () {
-        this.myEchart = echarts.init(this.$el.children[0], 'macarons')
+        console.log(this.$el.children[0])
+        this.myEchart = echarts.init(this.$el.children[0])
         this.renderEcharts(this.myEchart).then(() => {
           if (this.type !== 'pie') {
             this.myEchart.resize()
@@ -75,7 +77,7 @@
       }
     },
     watch: {
-      date () {
+      ecData () {
         this.myEchart.clear()
         this.renderEcharts(this.myEchart)
       }
@@ -87,7 +89,8 @@
   .echartsBox {
     width: 100%;
     height: 100%;
-    .myEcharts{
+
+    .myEcharts {
       width: 100%;
       height: 100%;
     }

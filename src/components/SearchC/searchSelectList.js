@@ -4,10 +4,10 @@
  */
 const searchSelectList = {
   // 员工列表
-  UserManage: [
+  GoodsList: [
     {
-      key: 'username',
-      name: '用户名'
+      key: 'productName',
+      name: '商品名称'
     },
     {
       key: 'realname',

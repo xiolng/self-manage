@@ -3,10 +3,9 @@
     <!--分页-->
     <a-pagination
       :total="total"
-      show-sizer
       :current="pages.current"
-      show-total
-      :pageSize="pages.pageSize"
+      show-size-changer
+      :page-size="pages.pageSize"
       @change="setCurrent"
       @showSizeChange="setLimit"
     />
@@ -15,10 +14,6 @@
 
 <script>
   export default {
-    /**
-     * @total 分页总数
-     * @callback 回调
-     */
     props: {
       total: Number,
       callback: Function
@@ -40,13 +35,13 @@
       setCurrent (data) {
         this.pages.current = data
         this.callData.pageNum = data
-        this.callback(this.callData)
+        this.$emit('callback', this.callData)
       },
       // 每页数量
-      setLimit (data) {
-        this.pages.pageSize = data
-        this.callData.pageSize = data
-        this.callback(this.callData)
+      setLimit (data, size) {
+        this.pages.pageSize = size
+        this.callData.pageSize = size
+        this.$emit('callback', this.callData)
       }
     }
   }
@@ -54,7 +49,4 @@
 
 <style scoped lang="less">
 
-  .znzheng {
-    width: 100%;
-  }
 </style>

@@ -74,7 +74,7 @@ module.exports = {
       //   // secure: false
       // },
       '/*': {
-        target: 'http://49.232.173.25:8011/'
+        target: 'https://business.noster.cn/'
         // target: 'http://jiadacc.com'
       },
     }

@@ -22,6 +22,7 @@
             allowClear
             @search="$emit('get-list', searchData())"
             @pressEnter="$emit('get-list', searchData())"
+            @close="$emit('get-list', searchData())"
           >
           </a-input>
         </a-input-group>
@@ -42,7 +43,6 @@
 
 <script>
   // 搜索关键字列表
-  import searchSelectList from '@/components/SearchC/searchSelectList'
 
   export default {
     /**

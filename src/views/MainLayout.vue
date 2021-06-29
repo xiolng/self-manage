@@ -8,7 +8,7 @@
       >
         <div class="logo" />
         <!--菜单-->
-        <menu-c v-if="getMenuData && getMenuData.length" :init-active="selectMenu" :menu-data="getMenuData" />
+        <menu-c :init-active="selectMenu" :menu-data="getMenuData" />
       </a-layout-sider>
       <a-layout
         :style="{marginLeft: collapsed ? '80px':'200px', transition: 'all .2s'}">

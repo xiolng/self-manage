@@ -7,7 +7,8 @@
       width="50%"
       placement="left"
       :mask-closable="false"
-      @close="$emit('cancel')"
+      @close.stop="$emit('cancel')"
+      :style="{transition: 'none'}"
     >
       <div class="search-box">
         <a-input placeholder="请输入关键字搜索" v-model="searchName" @keyup.enter="getList" allow-clear />
@@ -18,7 +19,7 @@
         :columns="column"
         :dataSource="dataSource"
         :pagination="pages"
-        rowKey="id"
+        rowKey="productId"
         :row-selection="{
           onChange: changeCheck,
           selectedRowKeys: selectDataList,
@@ -42,11 +43,11 @@
   const column = [
     {
       title: '名称',
-      dataIndex: 'name'
+      dataIndex: 'productName'
     },
     {
-      title: 'id',
-      dataIndex: 'id',
+      title: 'productId',
+      dataIndex: 'productId',
     },
   ]
   export default {
@@ -76,13 +77,14 @@
       }
     },
     mounted () {
+      this.selectData = this.selectList
       this.getList()
       this.selectDataList = (this.selectList && JSON.parse(JSON.stringify(this.selectList))) || []
     },
     methods: {
       getList () {
         this.func({
-          name: this.searchName,
+          productName: this.searchName,
           pageNum: this.pages.current,
           pageSize: this.pages.pageSize
         }).then(res => {
@@ -91,8 +93,8 @@
             this.pages.total = res.data.total
             this.selectList && this.selectList.map(v => {
               this.dataSource.map(j => {
-                if (j.id === v) {
-                  this.selectData.push(j)
+                if (j.productId === v) {
+                  this.selectData.push(j.productId)
                 }
               })
             })
@@ -100,8 +102,9 @@
         })
       },
       changeCheck (value, item) {
+        console.log(value, item)
         this.selectDataList = value
-        this.selectData = item
+        this.selectData = item.map(v => v.productId)
       },
       pageChange (pagination) {
         this.pages = {

@@ -27,119 +27,147 @@ const routes = [
         component: () => import('@/views/Home'),
         meta: {
           name: '概况',
-          icon: 'bar-chart',
+          icon: 'home',
           activeUrl: '/'
         }
       },
       {
-        path: '/systemManage',
-        component: () => import('@/views/SystemManage'),
+        path: '/shopManage',
+        component: () => import('@/views/ShopManage/ShopManage'),
         meta: {
-          name: '系统管理',
+          name: '店铺管理',
+          icon: 'shop',
+          activeUrl: '/shopManage'
+        }
+      },
+      {
+        path: '/goodsManage',
+        component: () => import('@/views/GoodsManage'),
+        meta: {
+          name: '商品管理',
           icon: 'setting',
-          activeUrl: '/systemManage'
+          activeUrl: '/goodsManage'
         },
         children: [
           {
-            path: 'userManage',
-            name: 'userManage',
-            component: () => import('@/views/SystemManage/UserManage/UserManage'),
+            path: 'goodsList',
+            name: 'goodsList',
+            component: () => import('@/views/GoodsManage/GoodsList/GoodsList'),
             meta: {
-              name: '用户管理',
+              name: '商品列表',
               icon: 'usergroup-add',
-              activeUrl: '/systemManage/userManage'
-            }
+              searchKey: 'GoodsList',
+              activeUrl: '/goodsManage/goodsList'
+            },
           },
           {
-            path: 'roleManage',
-            name: 'roleManage',
-            component: () => import('@/views/SystemManage/RoleManage/RoleManage'),
+            path: 'goodsDetail',
+            name: 'goodsDetail',
+            component: () => import('@/views/GoodsManage/GoodsList/EditGoods'),
             meta: {
-              name: '角色管理',
+              name: '新建、编辑',
+              icon: 'usergroup-add',
+              hideMenu: true,
+              activeUrl: '/goodsManage/goodsList'
+            },
+          },
+          {
+            path: 'goodsSort',
+            name: 'goodsSort',
+            component: () => import('@/views/GoodsManage/GoodsSort/GoodsSort'),
+            meta: {
+              name: '商品分类',
               icon: 'cluster',
-              searchKey: 'RoleManage',
-              activeUrl: '/systemManage/roleManage'
-            }
-          },
-          {
-            path: 'MenuManage',
-            name: 'MenuManage',
-            component: () => import('@/views/SystemManage/MenuManage/MenuManage'),
-            meta: {
-              name: '菜单管理',
-              icon: 'bars',
-              activeUrl: '/systemManage/MenuManage'
-            }
-          },
-          {
-            path: 'operation',
-            name: 'operation',
-            component: () => import('@/views/SystemManage/OperationLog'),
-            meta: {
-              name: '操作日志',
-              icon: 'file-word',
-              theme: true,
-              activeUrl: '/systemManage/operation'
+              searchKey: 'GoodsSort',
+              activeUrl: '/goodsManage/goodsSort'
             }
           },
         ]
       },
       {
-        path: `/tenantManage`,
-        name: 'tenantManage',
-        component: () => import('@/views/TenantManage'),
+        path: '/orderManage',
+        name: 'orderManage',
+        component: () => import('@/views/OrderManage'),
         meta: {
-          name: '租户',
-          icon: 'menu',
-          activeUrl: '/tenantManage'
+          name: '订单管理',
+          icon: 'cluster',
+          activeUrl: '/orderManage'
         },
         children: [
           {
-            path: 'list',
-            name: 'tenantManageList',
-            component: () => import('@/views/TenantManage/TenantManage'),
+            path: 'orderList',
+            name: 'orderList',
+            component: () => import('@/views/OrderManage/OrderList'),
             meta: {
-              name: '租户管理',
-              activeUrl: '/tenantManage/list'
+              name: '订单列表',
+              icon: 'cluster',
+              activeUrl: '/orderManage/orderList'
             }
-          },
-          {
-            path: 'rechargeLog',
-            name: 'rechargeLog',
-            component: () => import('@/views/TenantManage/RechargeLog'),
-            meta: {
-              name: '充值列表',
-              activeUrl: '/tenantManage/list'
-            }
-          },
+          }
         ]
       },
       {
-        path: `/systemIdea`,
-        name: 'systemIdea',
-        component: () => import('@/views/SystemIdea'),
+        path: '/salesManage',
+        name: 'salesManage',
+        component: () => import('@/views/SalesManage'),
         meta: {
-          name: '系统反馈',
-          icon: 'menu',
-          activeUrl: '/systemIdea'
+          name: '优惠券管理',
+          icon: 'cluster',
+          activeUrl: '/salesManage'
         },
         children: [
           {
-            path: 'list',
-            name: 'systemIdeaList',
-            component: () => import('@/views/SystemIdea/SystemIdea'),
+            path: 'salesList',
+            name: 'salesList',
+            component: () => import('@/views/SalesManage/List'),
             meta: {
-              name: '反馈管理',
-              activeUrl: '/systemIdea/list'
+              name: '优惠券列表',
+              icon: 'cluster',
+              activeUrl: '/salesManage/salesList'
             }
           },
           {
-            path: 'ideaDetail',
-            name: 'ideaDetail',
-            component: () => import('@/views/SystemIdea/SystemIdeaDetail'),
+            path: 'createSale',
+            name: 'createSale',
+            component: () => import('@/views/SalesManage/CreateSale'),
             meta: {
-              name: '反馈详情',
-              activeUrl: '/systemIdea/list'
+              name: '优惠券管理',
+              icon: 'cluster',
+              hideMenu: true,
+              activeUrl: '/salesManage/createSale'
+            }
+          },
+          {
+            path: 'addLog',
+            name: 'addLog',
+            component: () => import('@/views/SalesManage/AddLog'),
+            meta: {
+              name: '优惠券管理',
+              icon: 'cluster',
+              hideMenu: true,
+              activeUrl: '/salesManage/addLog'
+            }
+          }
+        ]
+      },
+      {
+        path: '/dataManage',
+        name: 'dataManage',
+        component: () => import('@/views/DataManage'),
+        meta: {
+          name: '数据管理',
+          icon: 'cluster',
+          activeUrl: '/dataManage'
+        },
+        children: [
+          {
+            path: 'dataList',
+            name: 'dataList',
+            component: () => import('@/views/DataManage/DataList'),
+            meta: {
+              name: '数据看板',
+              icon: 'cluster',
+              activeUrl: '/dataManage/dataList'
             }
           },
         ]

@@ -14,7 +14,8 @@
         <!--名称-->
         <div class="login-title">电信微店管理</div>
         <!--登录-->
-        <login-comp v-if="!isRegister"/>
+        <login-comp v-if="isRegister"/>
+        <valid-login />
         <!--注册-->
         <register v-if="isRegister"/>
         <!--按钮切换-->
@@ -31,10 +32,12 @@
   import LoginComp from '@/views/Login/loginComp/LoginComp'
   // 注册
   import Register from '@/views/Login/Register'
+  import ValidLogin from "./loginComp/ValidLogin"
 
   export default {
     name: 'Login',
     components: {
+      ValidLogin,
       Register,
       LoginComp
     },

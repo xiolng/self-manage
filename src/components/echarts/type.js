@@ -106,20 +106,10 @@ const bar = (ecData) => {
         type: 'value'
       }
     ],
-    series: ecData.data.map((v) => {
-      return {
-        name: v.name,
-        type: 'bar',
-        label: {
-          show: false,
-          formatter: (data) => {
-            return `${ecData.machine_datas[data.name]}\n台`
-          }
-          // rotate: 90
-        },
-        data: v.value
-      }
-    })
+    series: [{
+      data: ecData.data.map(v => v.value),
+      type: 'bar'
+    }]
   }
 }
 const line = (ecData) => {
@@ -157,27 +147,16 @@ const line = (ecData) => {
     xAxis: [
       {
         type: 'category',
-        boundaryGap: false,
         data: ecData.mmdd
       }
     ],
     yAxis: {
-      splitLine: {
-        show: true
-      }
+      type: 'value'
     },
-    series: ecData.data.map((v) => {
-      return {
-        name: v.name,
-        type: 'line',
-        data: v.value,
-        // stack: '总量',
-        // connectNulls: true,
-        // areaStyle: {
-        //   normal: {}
-        // }
-      }
-    })
+    series: [{
+      data: ecData.data.map(v => v.value),
+      type: 'line'
+    }]
   }
 }
 export { pie, bar, line }
