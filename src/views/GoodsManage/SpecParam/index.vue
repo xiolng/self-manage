@@ -1,21 +1,21 @@
 <!--xiolng-->
-<!--List-->
-<!--2021/6/26-->
-<!--7:44-->
+<!--index-->
+<!--2021/7/5-->
+<!--15:13-->
 <template>
-  <div class="List">
+  <div class="index">
     <!--筛选、添加-->
     <a-row type="flex" justify="space-between" align="top" class="mb-20">
       <a-col span="20">
         <search-c
           @get-list="getSearch"
           :search-list="[
-            {name: '优惠券名称', key: 'couponName'}
+            {name: '规格属性名称', key: 'paramName'}
             ]"
         />
       </a-col>
       <a-col>
-        <a-button type="primary" @click="$router.push(`/salesManage/CreateSale`)">新建</a-button>
+        <a-button type="primary" @click="visible = true, editId = null">新建</a-button>
       </a-col>
     </a-row>
     <!--table-list-->
@@ -23,21 +23,9 @@
       :columns="column"
       :dataSource="dataSource"
       :pagination="pages"
-      rowKey="id"
+      rowKey="specParamId"
       @change="pageChange"
     >
-      <div slot="addCoupon" slot-scope="text, record">
-        <a-button type="primary" size="small" class="mr-10" @click="addVisible = true, editId = record.couponId">追加
-        </a-button>
-        <a-button size="small" @click="$router.push(`/SalesManage/AddLog?id=${record.couponId}`)">追加记录</a-button>
-      </div>
-      <div slot="couponStatus" slot-scope="text, record" style="display: flex; align-items: center;">
-        <a-tag :color="text == 1 ? 'cyan':'red'">{{text == 0 ? '未启用':'启用'}}</a-tag>
-        <a-switch :checked="text == 1 ? true: false" @click="changeStatus(record)" />
-      </div>
-      <div slot="couponType" slot-scope="text">
-        <a-tag color="cyan">{{text == 0 ? '满减券':'折扣券'}}</a-tag>
-      </div>
       <div slot="operation" slot-scope="text, record">
         <a-row type="flex">
           <a-col>
@@ -45,14 +33,14 @@
               type="primary"
               size="small"
               class="mr-10"
-              @click="$router.push(`/SalesManage/CreateSale?id=${record.couponId}`)"
+              @click="visible = !visible, editId = record.specParamId"
             >编辑
             </a-button>
           </a-col>
           <a-col>
             <a-popconfirm
               title="确定要删除吗？"
-              @confirm="deleteItem(record.couponId)"
+              @confirm="deleteItem(record.specParamId)"
             >
               <a-button type="danger" size="small">删除</a-button>
             </a-popconfirm>
@@ -60,12 +48,12 @@
         </a-row>
       </div>
     </a-table>
-    <create-add-coupon
-      v-if="addVisible"
-      :visible="addVisible"
+    <create-spec-param
+      v-if="visible"
+      :visible="visible"
       :edit-id="editId"
-      @cancel="addVisible = false, editId = null"
-      @create="addVisible = false, editId = null, getList()"
+      @cancel="visible = false, editId = null"
+      @create="visible = false, editId = null, getList()"
     />
   </div>
 </template>
@@ -73,40 +61,25 @@
 <script>
 
   import SearchC from "@/components/SearchC/SearchC"
-  import { deleteCouponApi, disableCouponApi, enableCouponApi, pageCouponApi } from "@/api/SalesManageApi"
-  import CreateAddCoupon from "@/views/SalesManage/CreateAddCoupon"
+  import { deleteSpecGroupApi, deleteSpecParamApi, pageSpecParamApi } from "@/api/GoodsManageApi"
+  import CreateSpecParam from "@/views/GoodsManage/SpecParam/CreateSpecParam"
 
   const column = [
     {
-      title: '优惠券名称',
-      dataIndex: 'couponName'
+      title: '属性名称',
+      dataIndex: 'paramName'
     },
     {
-      title: '投放数量',
-      dataIndex: 'launchCount'
+      title: '创建人',
+      dataIndex: 'createBy'
     },
     {
-      title: '剩余数量',
-      dataIndex: 'launchAllowance'
+      title: '更新人',
+      dataIndex: 'updateBy'
     },
     {
-      title: '优惠券状态',
-      dataIndex: 'couponStatus',
-      scopedSlots: { customRender: 'couponStatus' }
-    },
-    {
-      title: '优惠券类型',
-      dataIndex: 'couponType',
-      scopedSlots: { customRender: 'couponType' }
-    },
-    {
-      title: '投放结束时间',
-      dataIndex: 'launchEndTime'
-    },
-    {
-      title: '追加',
-      dataIndex: 'couponType1',
-      scopedSlots: { customRender: 'addCoupon' }
+      title: '创建时间',
+      dataIndex: 'createTime'
     },
     {
       title: '操作',
@@ -116,21 +89,21 @@
     }
   ]
   export default {
-    name: "List",
-    components: { CreateAddCoupon, SearchC },
+    name: "index",
+    components: { CreateSpecParam, SearchC },
     data () {
       return {
         column,
         pages: {
           current: 1,
-          pageNum: 1,
+          specGroupId: this.$route.query.id,
           pageSize: 10,
           total: 0, // 总条数
           showSizeChanger: true
         }, // 分页
         searchName: {}, // 搜索关键字
         dataSource: [],
-        addVisible: false,
+        visible: false,
         editId: null
       }
     },
@@ -140,7 +113,7 @@
     methods: {
       // 获取列表
       getList () {
-        pageCouponApi({
+        pageSpecParamApi({
           ...this.pages,
           ...this.searchName
         }).then(res => {
@@ -151,24 +124,13 @@
           }
         })
       },
-      changeStatus (item) {
-        const func = item.couponStatus == 1 ? disableCouponApi : enableCouponApi
-        func({
-          couponId: item.couponId
-        }).then(res => {
-          if (res.data.code == '200') {
-            this.$message.success('操作成功')
-            this.getList()
-          }
-        })
-      },
       /**
        * 删除
-       * @param couponId
+       * @param specParamId
        */
-      deleteItem (couponId) {
-        deleteCouponApi({
-          couponId
+      deleteItem (specParamId) {
+        deleteSpecParamApi({
+          specParamId
         }).then(res => {
           const { code } = res.data
           if (code === '200') {
@@ -202,7 +164,7 @@
 </script>
 
 <style scoped lang="less">
-  .List {
+  .index {
 
   }
 </style>

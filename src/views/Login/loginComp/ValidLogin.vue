@@ -106,7 +106,8 @@
       getCode () {
         this.form.validateFields(['phone'], (err, val) => {
           if (!err) {
-            this.validTxt = '60s'
+            this.validTime = 59
+            this.validTxt = '59s'
             getValidateCode({
               phone: val.phone
             }).then(res => {

@@ -447,6 +447,7 @@
             const func = this.$route.query.id ? updateCouponApi : saveCouponApi
             func({
               ...val,
+              couponId: this.$route.query.id,
               startTime: moment(val.startTime).format('YYYY-MM-DD'),
               endTime: moment(val.startTime).format('YYYY-MM-DD'),
               launchStartTime: moment(val.launchStartTime).format('YYYY-MM-DD'),

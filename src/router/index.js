@@ -33,12 +33,54 @@ const routes = [
       },
       {
         path: '/shopManage',
-        component: () => import('@/views/ShopManage/ShopManage'),
+        component: () => import('@/views/ShopManage'),
         meta: {
           name: '店铺管理',
           icon: 'shop',
           activeUrl: '/shopManage'
-        }
+        },
+        children: [
+          {
+            path: 'detail',
+            name: 'detail',
+            component: () => import('@/views/ShopManage/ShopManage'),
+            meta: {
+              name: '店铺信息',
+              icon: 'setting',
+              activeUrl: '/shopManage/detail'
+            }
+          },
+          {
+            path: 'menu',
+            name: 'menu',
+            component: () => import('@/views/ShopManage/ShopMenu'),
+            meta: {
+              name: '店铺菜单',
+              icon: 'setting',
+              activeUrl: '/shopManage/menu'
+            }
+          },
+          {
+            path: 'showWindow',
+            name: 'showWindow',
+            component: () => import('@/views/ShopManage/ShopShowWindow'),
+            meta: {
+              name: '店铺橱窗',
+              icon: 'setting',
+              activeUrl: '/shopManage/showWindow'
+            }
+          },
+          {
+            path: 'banner',
+            name: 'banner',
+            component: () => import('@/views/ShopManage/ShopBanner'),
+            meta: {
+              name: '轮播图',
+              icon: 'setting',
+              activeUrl: '/shopManage/banner'
+            }
+          },
+        ]
       },
       {
         path: '/goodsManage',
@@ -61,9 +103,9 @@ const routes = [
             },
           },
           {
-            path: 'goodsDetail',
-            name: 'goodsDetail',
-            component: () => import('@/views/GoodsManage/GoodsList/EditGoods'),
+            path: 'saveGoods',
+            name: 'saveGoods',
+            component: () => import('@/views/GoodsManage/GoodsList/SaveGoods'),
             meta: {
               name: '新建、编辑',
               icon: 'usergroup-add',
@@ -80,6 +122,40 @@ const routes = [
               icon: 'cluster',
               searchKey: 'GoodsSort',
               activeUrl: '/goodsManage/goodsSort'
+            }
+          },
+          {
+            path: 'postageManage',
+            name: 'postageManage',
+            component: () => import('@/views/GoodsManage/PostageManage'),
+            meta: {
+              name: '邮费管理',
+              icon: 'cluster',
+              searchKey: 'GoodsSort',
+              activeUrl: '/goodsManage/postageManage'
+            }
+          },
+          {
+            path: 'specGroup',
+            name: 'specGroup',
+            component: () => import('@/views/GoodsManage/SpecGroup'),
+            meta: {
+              name: '规格组',
+              icon: 'cluster',
+              searchKey: 'GoodsSort',
+              activeUrl: '/goodsManage/specGroup'
+            }
+          },
+          {
+            path: 'specParam',
+            name: 'specParam',
+            component: () => import('@/views/GoodsManage/SpecParam'),
+            meta: {
+              name: '规格属性',
+              icon: 'cluster',
+              hideMenu: true,
+              searchKey: 'GoodsSort',
+              activeUrl: '/goodsManage/specGroup'
             }
           },
         ]
@@ -107,47 +183,70 @@ const routes = [
         ]
       },
       {
-        path: '/salesManage',
-        name: 'salesManage',
-        component: () => import('@/views/SalesManage'),
+        path: `/marketingManage`,
+        name: 'marketingManage',
+        component: () => import('@/views/MarketingManage'),
         meta: {
-          name: '优惠券管理',
+          name: '营销管理',
           icon: 'cluster',
-          activeUrl: '/salesManage'
+          activeUrl: '/marketingManage'
         },
         children: [
           {
-            path: 'salesList',
-            name: 'salesList',
-            component: () => import('@/views/SalesManage/List'),
+            path: `default`,
+            name: 'default',
+            component: () => import('@/views/MarketingManage/Default'),
             meta: {
-              name: '优惠券列表',
+              name: '营销列表',
               icon: 'cluster',
-              activeUrl: '/salesManage/salesList'
+              activeUrl: '/marketingManage/default'
             }
           },
           {
-            path: 'createSale',
-            name: 'createSale',
-            component: () => import('@/views/SalesManage/CreateSale'),
+            path: 'salesManage',
+            name: 'salesManage',
+            component: () => import('@/views/MarketingManage/SalesManage'),
             meta: {
               name: '优惠券管理',
               icon: 'cluster',
               hideMenu: true,
-              activeUrl: '/salesManage/createSale'
-            }
+              activeUrl: '/marketingManage/default'
+            },
+            children: [
+              {
+                path: 'salesList',
+                name: 'salesList',
+                component: () => import('@/views/MarketingManage/SalesManage/List'),
+                meta: {
+                  name: '优惠券列表',
+                  icon: 'cluster',
+                  activeUrl: '/marketingManage/default'
+                }
+              },
+              {
+                path: 'createSale',
+                name: 'createSale',
+                component: () => import('@/views/MarketingManage/SalesManage/CreateSale'),
+                meta: {
+                  name: '优惠券管理',
+                  icon: 'cluster',
+                  hideMenu: true,
+                  activeUrl: '/marketingManage/default'
+                }
+              },
+              {
+                path: 'addLog',
+                name: 'addLog',
+                component: () => import('@/views/MarketingManage/SalesManage/AddLog'),
+                meta: {
+                  name: '优惠券管理',
+                  icon: 'cluster',
+                  hideMenu: true,
+                  activeUrl: '/marketingManage/default'
+                }
+              }
+            ]
           },
-          {
-            path: 'addLog',
-            name: 'addLog',
-            component: () => import('@/views/SalesManage/AddLog'),
-            meta: {
-              name: '优惠券管理',
-              icon: 'cluster',
-              hideMenu: true,
-              activeUrl: '/salesManage/addLog'
-            }
-          }
         ]
       },
       {

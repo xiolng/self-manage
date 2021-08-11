@@ -19,7 +19,8 @@ export const treeMenu = (data, id) => {
   data.forEach(item => {
     item.key = item[id]
     item.value = item[id]
-    item.title = item.menuName
+    item.title = item.categoryName
+    item.icon = item.categoryIcon
     const parentId = map[item.parentId]
     if (parentId) {
       (parentId.children || (parentId.children = [])).push(item)
@@ -69,8 +70,8 @@ export const rootFun = function (h, { root, node, data }) {
             vm.showAdd = !vm.showAdd
             vm.menuData = {
               data: {
-                menuId: '0',
-                systemMenuId: '0',
+                productCategoryId: '0',
+                parentId: '0',
                 title: 'root'
               }
             }
@@ -134,10 +135,11 @@ export const renderContent = function (h, { root, node, data }) {
               marginRight: '20px'
             }
           }, [
-            h('a-icon', {
+            h('a-avatar', {
               props: {
                 type: data.icon,
-                color: '#ccc'
+                color: '#ccc',
+                src: `/files/${data.icon}`
               }
             }),
             h('span', {
@@ -145,13 +147,13 @@ export const renderContent = function (h, { root, node, data }) {
                 display: 'inline-block',
                 margin: '0 10px'
               }
-            }, data.title),
-            h('span', {
-              style: {
-                color: '#ccc',
-                fontSize: '12px'
-              }
-            }, `地址： ${data.menuUrl}`)
+            }, `分类名称：${data.title}`),
+            // h('span', {
+            //   style: {
+            //     color: '#ccc',
+            //     fontSize: '12px'
+            //   }
+            // }, `地址： ${data.menuUrl}`)
           ])
         ]),
       ]),
@@ -185,7 +187,7 @@ export const renderContent = function (h, { root, node, data }) {
                   click () {
                     const parentKey = root.find(el => el === node).parent
                     const parentId = root.find(el => el.nodeKey === parentKey).node
-                    const editData = data.menuId ? { menuId: data.menuId } : { systemMenuId: data.systemMenuId }
+                    const editData = data.productCategoryId ? { productCategoryId: data.productCategoryId } : { systemMenuId: data.systemMenuId }
                     vm.menuData = {
                       ...editData,
                       parentId

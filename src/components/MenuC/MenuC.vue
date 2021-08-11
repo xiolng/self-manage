@@ -67,7 +67,6 @@
       },
       // 点击菜单选中
       clickMenu ({item, key, keyPath}) {
-        console.log(item, key, keyPath, this.$route.path)
         this.selectMenu = [key]
         if (key === this.$route.path) return
         this.$router.push({

@@ -15,7 +15,7 @@
         />
       </a-col>
       <a-col>
-        <a-button type="primary" @click="$router.push('goodsDetail')">新建</a-button>
+        <a-button type="primary" @click="$router.push('saveGoods')">新建</a-button>
       </a-col>
     </a-row>
     <!--table-list-->
@@ -48,7 +48,7 @@
               type="primary"
               size="small"
               class="mr-10"
-              @click="$router.push(`goodsDetail?productId=${record.productId}`)"
+              @click="$router.push(`saveGoods?productId=${record.productId}`)"
             >编辑
             </a-button>
           </a-col>

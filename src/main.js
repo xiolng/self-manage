@@ -16,6 +16,7 @@ import {
   Tooltip,
   Select,
   Input,
+  InputNumber,
   Option,
   DropdownMenu,
   Dropdown
@@ -49,6 +50,7 @@ Vue.component('Tooltip', Tooltip)
 Vue.component('Select', Select)
 Vue.component('Option', Option)
 Vue.component('Input', Input)
+Vue.component('InputNumber', InputNumber)
 Vue.component('DropdownMenu', DropdownMenu)
 Vue.component('Dropdown', Dropdown)
 

@@ -85,7 +85,7 @@
             return
           }
 
-          success(`/fileLoad/files/${json.data}`)
+          success(`/files/${json.data}`)
         }
 
         xhr.onerror = function () {

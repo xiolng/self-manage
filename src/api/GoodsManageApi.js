@@ -87,3 +87,94 @@ export const updateProductCategoryApi = data => Http.post(
   `${BASE_URL}/system/productCategory/updateProductCategory`,
   data
 )
+
+// 查询邮费信息*
+export const getOrderPostageApi = params => Http.get(
+  `${BASE_URL}/system/orderPostage/getOrderPostage`,
+  { params }
+)
+
+// 保存邮费信息*
+export const saveOrderPostageApi = data => Http.post(
+  `${BASE_URL}/system/orderPostage/saveOrderPostage`,
+  data
+)
+// 更新邮费信息*
+export const updateOrderPostageApi = data => Http.post(
+  `${BASE_URL}/system/orderPostage/updateOrderPostage`,
+  data
+)
+
+// 删除规格组*
+export const deleteSpecGroupApi = params => Http.get(
+  `${BASE_URL}/system/specGroup/deleteSpecGroup`,
+  { params }
+)
+
+// 删除规格属性*
+export const deleteSpecParamApi = params => Http.get(
+  `${BASE_URL}/system/specGroup/deleteSpecParam`,
+  { params }
+)
+
+// 查询规格组*
+export const getSpecGroupApi = params => Http.get(
+  `${BASE_URL}/system/specGroup/getSpecGroup`,
+  { params }
+)
+// 查询规格组列表*
+export const listSpecGroupApi = params => Http.get(
+  `${BASE_URL}/system/specGroup/listSpecGroup`,
+  { params }
+)
+// 查询规格属性*
+export const getSpecParamApi = params => Http.get(
+  `${BASE_URL}/system/specGroup/getSpecParam`,
+  { params }
+)
+
+// 分页查询规格组*
+export const pageSpecGroupApi = data => Http.post(
+  `${BASE_URL}/system/specGroup/pageSpecGroup`,
+  data
+)
+
+// 分页查询规格属性*
+export const pageSpecParamApi = data => Http.post(
+  `${BASE_URL}/system/specGroup/pageSpecParam`,
+  data
+)
+
+// 保存规格组*
+export const saveSpecGroupApi = data => Http.post(
+  `${BASE_URL}/system/specGroup/saveSpecGroup`,
+  data
+)
+
+// 保存规格属性*
+export const saveSpecParamApi = data => Http.post(
+  `${BASE_URL}/system/specGroup/saveSpecParam`,
+  data
+)
+
+// 更新规格组*
+export const updateSpecGroupApi = data => Http.post(
+  `${BASE_URL}/system/specGroup/updateSpecGroup`,
+  data
+)
+
+// 更新规格属性*
+export const updateSpecParamApi = data => Http.post(
+  `${BASE_URL}/system/specGroup/updateSpecParam`,
+  data
+)
+
+
+
+
+
+
+
+
+
+

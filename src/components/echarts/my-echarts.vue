@@ -59,7 +59,6 @@
         await myEchart.setOption(option)
       },
       initEcharts () {
-        console.log(this.$el.children[0])
         this.myEchart = echarts.init(this.$el.children[0])
         this.renderEcharts(this.myEchart).then(() => {
           if (this.type !== 'pie') {

@@ -20,7 +20,7 @@
       :columns="column"
       :dataSource="dataSource"
       :pagination="pages"
-      rowKey="couponId"
+      rowKey="createTime"
       @change="pageChange"
     >
       <!--<div slot="operation" slot-scope="text, record">-->
@@ -90,7 +90,7 @@
           const { data, code, total } = res.data
           if (code === '200') {
             this.dataSource = data
-            this.pages.total = total
+            this.pages.total = total || data.length
           }
         })
       },

@@ -8,10 +8,6 @@
       @preview="handlePreview"
       :beforeUpload="beforeUpload"
       :remove="removeImg"
-      v-decorator="[
-            `fileList`,
-            { rules: [{ required: true, message: '请上传图片' }] }
-          ]"
     >
       <div v-if="fileList.length < (imgLength || 6)">
         <a-icon type="plus"/>
@@ -57,6 +53,26 @@
       }
     },
     mounted () {
+      if (this.defaultData || this.defaultData.length){
+        if (typeof this.defaultData === 'string') {
+          this.fileList = [{
+            url: '/files/' + this.defaultData,
+            status: 'done',
+            uid: 1,
+            name: this.defaultData
+          }]
+        } else {
+          this.fileList = []
+          this.defaultData.map((v, index) => {
+            this.fileList.push({
+              url: '/files/' + v,
+              status: 'done',
+              uid: index + 1,
+              name: v
+            })
+          })
+        }
+      }
     },
     methods: {
       // 取消预览
